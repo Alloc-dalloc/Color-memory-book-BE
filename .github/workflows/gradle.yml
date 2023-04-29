@@ -47,15 +47,15 @@ jobs:
       run: ./gradlew build
 
     - name: Make zip file
-        run: |
-          mkdir deploy
-          cp ./docker-compose.blue.yml ./deploy/
-          cp ./docker-compose.green.yml ./deploy/
-          cp ./appspec.yml ./deploy/
-          cp ./Dockerfile ./deploy/
-          cp ./scripts/*.sh ./deploy/
-          cp ./build/libs/*.jar ./deploy/
-          zip -r -qq -j ./osogo-build.zip ./deploy
+      run: |
+        mkdir deploy
+        cp ./docker-compose.blue.yml ./deploy/
+        cp ./docker-compose.green.yml ./deploy/
+        cp ./appspec.yml ./deploy/
+        cp ./Dockerfile ./deploy/
+        cp ./scripts/*.sh ./deploy/
+        cp ./build/libs/*.jar ./deploy/
+        zip -r -qq -j ./osogo-build.zip ./deploy
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
