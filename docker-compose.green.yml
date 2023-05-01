@@ -5,4 +5,8 @@ services:
     build: .
     ports:
       - "8082:8080"
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - /home/ec2-user/log:/var/log
     container_name: spring-green
