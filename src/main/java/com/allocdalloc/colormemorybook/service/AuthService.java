@@ -23,6 +23,8 @@ public class AuthService {
     public LoginResponseDto appleOAuthLogin(AppleLoginRequest request) {
         ApplePlatformMemberResponse applePlatformMember =
                 appleOAuthUserProvider.getApplePlatformMember(request.getToken());
+        log.info("applePlatformMember platformId: {}", applePlatformMember.getPlatformId());
+        log.info("applePlatformMember email: {}", applePlatformMember.getEmail());
         String platformId = applePlatformMember.getPlatformId();
 
         return memberRepository.findByEmail(applePlatformMember.getEmail())
