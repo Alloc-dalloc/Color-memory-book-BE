@@ -36,7 +36,7 @@ public class AuthService {
                             .role(Role.ROLE_USER).build());
 
                     return issueToken(savedMember);
-                });
+                }); // 오 여기 코드 잘 짰네 깔끔하게
     }
 
     private LoginResponseDto issueToken(final Member findMember) {
@@ -44,5 +44,11 @@ public class AuthService {
         String refreshToken = jwtTokenUtil.generateRefreshToken(findMember.getId(), findMember.getRole(), findMember.getEmail(), true);
 
         return LoginResponseDto.of(accessToken, refreshToken);
+    }
+
+    public LoginResponseDto issueTestTokenById(Long id){
+        Member findMember = memberRepository.findById(id).orElseThrow();
+
+        return issueToken(findMember);
     }
 }
