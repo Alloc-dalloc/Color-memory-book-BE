@@ -48,6 +48,9 @@ dependencies {
 
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    implementation platform('software.amazon.awssdk:bom:2.17.230')
+    implementation 'software.amazon.awssdk:s3'
+    implementation 'software.amazon.awssdk:rekognition'
 }
 
 tasks.named('test') {
