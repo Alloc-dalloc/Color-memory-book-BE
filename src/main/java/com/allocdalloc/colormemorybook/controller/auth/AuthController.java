@@ -20,4 +20,9 @@ public class AuthController {
     public ResponseEntity<LoginResponseDto> appleOAuthLogin(@RequestBody AppleLoginRequest appleLoginRequest) {
         return ResponseEntity.ok().body(authService.appleOAuthLogin(appleLoginRequest));
     }
+
+    @PostMapping("/test/generate-token")
+    public ResponseEntity<LoginResponseDto> generateToken(@RequestBody Long id) {
+        return ResponseEntity.ok().body(authService.issueTestTokenById(id));
+    }
 }

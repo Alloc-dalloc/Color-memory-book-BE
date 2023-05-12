@@ -1,0 +1,21 @@
+spring:
+  config:
+    import: application-secret.yml
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  servlet:
+    multipart:
+      max-request-size: 15MB
+      max-file-size: 15MB
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+server:
+  port: 8080
+
+image:
+  path: image/
