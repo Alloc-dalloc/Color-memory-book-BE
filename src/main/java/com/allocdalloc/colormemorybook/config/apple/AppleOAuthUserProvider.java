@@ -1,7 +1,7 @@
 package com.allocdalloc.colormemorybook.config.apple;
 
 import com.allocdalloc.colormemorybook.dto.apple.response.ApplePlatformMemberResponse;
-import com.allocdalloc.colormemorybook.exception.custom.CustomException;
+import com.allocdalloc.colormemorybook.exception.custom.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,7 +31,7 @@ public class AppleOAuthUserProvider {
 
     private void validateClaims(Claims claims) {
         if (!appleClaimsValidator.isValid(claims)) {
-            throw new CustomException("Apple OAuth Claims 값이 올바르지 않습니다.");
+            throw new InvalidTokenException("Apple OAuth Claims 값이 올바르지 않습니다.");
         }
     }
 }
