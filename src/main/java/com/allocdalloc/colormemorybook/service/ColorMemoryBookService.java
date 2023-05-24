@@ -1,6 +1,7 @@
 package com.allocdalloc.colormemorybook.service;
 
 import com.allocdalloc.colormemorybook.dto.colorMemoryBook.request.ColorMemoryBookRegisterRequestDto;
+import com.allocdalloc.colormemorybook.dto.colorMemoryBook.response.ColorMemoryBookDetailInfoResponseDto;
 import com.allocdalloc.colormemorybook.dto.colorMemoryBook.response.ColorMemoryBookHomeResponse;
 import com.allocdalloc.colormemorybook.dto.colorMemoryBook.response.ColorMemoryBookRegisterResponseDto;
 import com.allocdalloc.colormemorybook.entity.material.Material;
@@ -46,5 +47,9 @@ public class ColorMemoryBookService {
 
     public List<ColorMemoryBookHomeResponse> getMaterialAtHome(UserAccount userAccount, Long cursor, Pageable pageable, String keyword){
         return materialRepository.findByKeyword(userAccount, cursor, pageable, keyword);
+    }
+
+    public ColorMemoryBookDetailInfoResponseDto getMaterialDetailInfo(UserAccount userAccount, Long materialId){
+        return materialRepository.findByIdAndUserId(materialId, userAccount).get();
     }
 }
