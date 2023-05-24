@@ -1,6 +1,5 @@
 package com.allocdalloc.colormemorybook.dto.image.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,22 +11,23 @@ import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class ImageUploadResponseDto {
+public class ImageTotalAnalysisResponseDto {
     private String imageUrl;
     private List<LabelDto> labels;
-    // TODO: 이미지 관련 로직 후 DTO 업데이트 필요
-
+    private List<ImageColorAnalysisResponseDto> colorAnalysis;
     @Builder
-    public ImageUploadResponseDto(String imageUrl, List<LabelDto> labels) {
+    public ImageTotalAnalysisResponseDto(String imageUrl, List<LabelDto> labels, List<ImageColorAnalysisResponseDto> colorAnalysis) {
         this.imageUrl = imageUrl;
         this.labels = labels;
+        this.colorAnalysis = colorAnalysis;
     }
 
 
-    public static ImageUploadResponseDto from(String imageUrl, DetectLabelsResponse detectLabelsResponse) {
-        return ImageUploadResponseDto.builder()
+    public static ImageTotalAnalysisResponseDto from(String imageUrl, DetectLabelsResponse detectLabelsResponse, List<ImageColorAnalysisResponseDto> imageColorAnalysisResponseDto) {
+        return ImageTotalAnalysisResponseDto.builder()
                 .imageUrl(imageUrl)
                 .labels(detectLabelsResponse.labels().stream().map(LabelDto::from).collect(Collectors.toList()))
+                .colorAnalysis(imageColorAnalysisResponseDto)
                 .build();
     }
 
@@ -50,4 +50,5 @@ public class ImageUploadResponseDto {
                     .build();
         }
     }
+
 }
