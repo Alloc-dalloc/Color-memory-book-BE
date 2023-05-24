@@ -1,6 +1,7 @@
 package com.allocdalloc.colormemorybook.controller.colorMemoryBook;
 
 import com.allocdalloc.colormemorybook.dto.colorMemoryBook.request.ColorMemoryBookRegisterRequestDto;
+import com.allocdalloc.colormemorybook.dto.colorMemoryBook.response.ColorMemoryBookDetailInfoResponseDto;
 import com.allocdalloc.colormemorybook.dto.colorMemoryBook.response.ColorMemoryBookHomeResponse;
 import com.allocdalloc.colormemorybook.dto.colorMemoryBook.response.ColorMemoryBookRegisterResponseDto;
 import com.allocdalloc.colormemorybook.entity.user.detail.UserAccount;
@@ -13,6 +14,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -43,5 +45,16 @@ public class ColorMemoryBookController {
     {
         List<ColorMemoryBookHomeResponse> materialAtHome = colorMemoryBookService.getMaterialAtHome(userAccount, cursor, pageable, keyword);
         return ResponseEntity.ok().body(materialAtHome);
+    }
+
+    @GetMapping("/detail/{materialId}")
+    public ResponseEntity<ColorMemoryBookDetailInfoResponseDto> getMaterialDetailInfo
+            (
+                    @AuthenticationPrincipal UserAccount userAccount,
+                    @NotNull @PathVariable Long materialId
+            )
+    {
+        ColorMemoryBookDetailInfoResponseDto materialDetailInfo = colorMemoryBookService.getMaterialDetailInfo(userAccount, materialId);
+        return ResponseEntity.ok().body(materialDetailInfo);
     }
 }
