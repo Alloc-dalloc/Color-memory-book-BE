@@ -2,6 +2,7 @@ package com.allocdalloc.colormemorybook.config.utils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,8 @@ import java.time.Duration;
 @Slf4j
 @RequiredArgsConstructor
 public class RestTemplateConfig {
-
+    @Value("${flask.ip}")
+    private String flaskIp;
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder
@@ -25,7 +27,7 @@ public class RestTemplateConfig {
                 .setConnectTimeout(Duration.ofMillis(50000)) // connection-timeout
                 .setReadTimeout(Duration.ofMillis(50000)) // read-timeout
                 .additionalMessageConverters(new StringHttpMessageConverter(StandardCharsets.UTF_8))
-                .rootUri("http://127.0.0.1:5000")
+                .rootUri(flaskIp)
                 .build();
     }
 
