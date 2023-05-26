@@ -1,5 +1,6 @@
 package com.allocdalloc.colormemorybook.entity.user;
 
+import com.allocdalloc.colormemorybook.entity.material.Material;
 import com.allocdalloc.colormemorybook.entity.token.UserToken;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,6 +42,9 @@ public class Member {
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "member")
+    private List<Material> materials;
 
 
     @Builder
