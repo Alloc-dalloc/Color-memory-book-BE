@@ -42,6 +42,7 @@ public class ColorMemoryBookService {
                 .imageUrl(material.getImageUrl())
                 .materialId(material.getId())
                 .tagList(MaterialTag.toDtoList(materialTagList))
+                .description(material.getDescription())
                 .build();
     }
 
