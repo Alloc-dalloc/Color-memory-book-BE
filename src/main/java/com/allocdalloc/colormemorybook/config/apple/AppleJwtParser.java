@@ -1,7 +1,7 @@
 package com.allocdalloc.colormemorybook.config.apple;
 
-import com.allocdalloc.colormemorybook.exception.custom.CustomException;
-import com.allocdalloc.colormemorybook.exception.custom.ExpiredTokenException;
+import com.allocdalloc.colormemorybook.exception.custom.InvalidTokenException;
+import com.allocdalloc.colormemorybook.exception.custom.TokenExpiredException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
@@ -25,7 +25,7 @@ public class AppleJwtParser {
             String decodedHeader = new String(Base64Utils.decodeFromUrlSafeString(encodedHeader));
             return OBJECT_MAPPER.readValue(decodedHeader, Map.class);
         } catch (JsonProcessingException | ArrayIndexOutOfBoundsException e) {
-            throw new CustomException("Apple OAuth Identity Token 형식이 올바르지 않습니다.");
+            throw new InvalidTokenException("Apple OAuth Identity Token 형식이 올바르지 않습니다.");
         }
     }
 
@@ -36,9 +36,9 @@ public class AppleJwtParser {
                     .parseClaimsJws(idToken)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            throw new ExpiredTokenException("Apple OAuth 로그인 중 Identity Token 유효기간이 만료됐습니다.");
+            throw new TokenExpiredException("Apple OAuth 로그인 중 Identity Token 유효기간이 만료됐습니다.");
         } catch (UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
-            throw new ExpiredTokenException("Apple OAuth Identity Token 값이 올바르지 않습니다.");
+            throw new TokenExpiredException("Apple OAuth Identity Token 값이 올바르지 않습니다.");
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.allocdalloc.colormemorybook.config.jwt;
 
 import com.allocdalloc.colormemorybook.entity.user.detail.UserAccountService;
-import com.allocdalloc.colormemorybook.exception.custom.UnauthorizedTokenException;
+import com.allocdalloc.colormemorybook.exception.custom.UserUnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,7 +22,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         if (authentication.getPrincipal() == null || !jwtTokenUtil.isValidToken(authentication.getPrincipal().toString())) {
 
-            throw UnauthorizedTokenException.builder().httpStatus(HttpStatus.UNAUTHORIZED).message("인증되지 않은 사용자입니다.").build();
+            throw new UserUnauthorizedException("유효하지 않은 토큰입니다.");
         }
 
 
