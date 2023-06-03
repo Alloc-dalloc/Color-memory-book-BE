@@ -11,7 +11,7 @@ import com.allocdalloc.colormemorybook.entity.tag.MaterialTagRepository;
 import com.allocdalloc.colormemorybook.entity.user.Member;
 import com.allocdalloc.colormemorybook.entity.user.MemberRepository;
 import com.allocdalloc.colormemorybook.entity.user.detail.UserAccount;
-import com.allocdalloc.colormemorybook.exception.custom.CustomException;
+import com.allocdalloc.colormemorybook.exception.custom.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +32,7 @@ public class ColorMemoryBookService {
     @Transactional
     public ColorMemoryBookRegisterResponseDto registerColorMemoryBook(UserAccount userAccount, ColorMemoryBookRegisterRequestDto colorMemoryBookRegisterRequestDto) {
         Member member = memberRepository.findByEmail(userAccount.getEmail())
-                .orElseThrow(() -> CustomException.builder().httpStatus(HttpStatus.NOT_FOUND).message("존재하지 않는 유저입니다.").build());
+                .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저입니다."));
 
         Material material = materialRepository.save(Material.toEntity(colorMemoryBookRegisterRequestDto, member));
 
