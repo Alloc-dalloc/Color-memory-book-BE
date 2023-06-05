@@ -39,7 +39,7 @@ public class ColorMemoryBookController {
             (
                     @AuthenticationPrincipal UserAccount userAccount,
                     @Nullable @RequestParam Long cursor,
-                    @PageableDefault(size = 6) Pageable pageable,
+                    @PageableDefault(size = 15) Pageable pageable,
                     @RequestParam(required = false, defaultValue = "") String keyword
             )
     {
