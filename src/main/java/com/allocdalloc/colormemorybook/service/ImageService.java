@@ -14,10 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.rekognition.RekognitionClient;
 import software.amazon.awssdk.services.rekognition.model.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -34,7 +31,11 @@ public class ImageService {
     public ImageTotalAnalysisResponseDto imageAnalysis(MultipartFile image) throws Exception {
         String s3FileName = amazonS3Uploader.makeS3FileName(image);
         String uploadImageUrl = amazonS3Uploader.saveFileAndGetUrl(image, s3FileName);
-        return ImageTotalAnalysisResponseDto.from(uploadImageUrl, detectLabels(s3FileName), analysisColor(uploadImageUrl));      // 업로드된 파일의 S3 URL 주소 반환
+        List<ImageColorAnalysisResponseDto> imageColorAnalysisResponseDtoList = new ArrayList<>();
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("빨강").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("초록").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("파랑").colorPercentage(60).build());
+        return ImageTotalAnalysisResponseDto.from(uploadImageUrl, detectLabels(s3FileName), imageColorAnalysisResponseDtoList);      // 업로드된 파일의 S3 URL 주소 반환
     }
 
     private DetectLabelsResponse detectLabels(String fileName) {
