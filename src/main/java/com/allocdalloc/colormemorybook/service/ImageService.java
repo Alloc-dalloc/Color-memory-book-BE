@@ -35,6 +35,7 @@ public class ImageService {
         imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("빨강").colorPercentage(60).build());
         imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("초록").colorPercentage(60).build());
         imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("파랑").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("핑크").colorPercentage(60).build());
         return ImageTotalAnalysisResponseDto.from(uploadImageUrl, detectLabels(s3FileName), imageColorAnalysisResponseDtoList);      // 업로드된 파일의 S3 URL 주소 반환
     }
 
