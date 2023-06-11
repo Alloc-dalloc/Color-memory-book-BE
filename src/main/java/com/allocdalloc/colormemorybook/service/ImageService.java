@@ -32,10 +32,10 @@ public class ImageService {
         String s3FileName = amazonS3Uploader.makeS3FileName(image);
         String uploadImageUrl = amazonS3Uploader.saveFileAndGetUrl(image, s3FileName);
         List<ImageColorAnalysisResponseDto> imageColorAnalysisResponseDtoList = new ArrayList<>();
-        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("빨강").colorPercentage(60).build());
-        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("초록").colorPercentage(60).build());
-        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("파랑").colorPercentage(60).build());
-        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("핑크").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("Red").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("Firebrick").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("Burgandy").colorPercentage(60).build());
+        imageColorAnalysisResponseDtoList.add(ImageColorAnalysisResponseDto.builder().colorName("Darkred").colorPercentage(60).build());
         return ImageTotalAnalysisResponseDto.from(uploadImageUrl, detectLabels(s3FileName), imageColorAnalysisResponseDtoList);      // 업로드된 파일의 S3 URL 주소 반환
     }
 
